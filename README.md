@@ -19,7 +19,7 @@ yarn start
 ```
 
 
-Further Updates:
+Future Updates:
 
 I would be adding authentication/login system so that multi-users can access the tracker at the same time.
 
