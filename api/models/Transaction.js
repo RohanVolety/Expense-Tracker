@@ -1,22 +1,34 @@
-const mongoose=require('mongoose');
-const {Schema,model}=mongoose;
+const mongoose = require('mongoose');
+const { Schema, model } = mongoose;
 
-mongoose.set("strictQuery", false);
-mongoose.connect(process.env.MONGO_URL, () => {
-  console.log("Connected to MongoDB");
-});
+const TransactionSchema = new Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  price: {
+    type: Number,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  datetime: {
+    type: Date,
+    required: true
+  },
+  expireAt: {
+    type: Date,
+    expires: 2592000,
+    index: true,
+    default: Date.now
+  }
+    //createdAt: { type: Date, default: Date.now, expires: '1s', index: { expireAfterSeconds: 0 } }
+  
+}, { timestamps: true });
 
 
-const TransactionSchema=new Schema({
- 
-  name:{type:String,required:true,unique:true},
-   price:{type:Number,required:true,unique:true},  
-   description:{type:String,required:true,unique:true},
-    datetime:{type:Date,required:true,unique:true},
-});
 
-
-const TransactionModel=model("Transaction",TransactionSchema);
-
-module.exports=TransactionModel;
+module.exports = model("Transaction", TransactionSchema);;
 
