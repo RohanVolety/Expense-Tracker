@@ -2,17 +2,17 @@
 
 Steps to Run the Project:
 
-1) To run Backend
+1) To Run Backend
 ```python
 
 
 cd api
 ```
 ```bash
-nodemon server.js
+nodemon index.js
 ```
 
-2) To run Frontend
+2) To Run Frontend
 
 ```bash
 yarn start
@@ -20,6 +20,7 @@ yarn start
 
 
 Further Updates:
+
 I would be adding authentication/login system so that multi-users can access the tracker at the same time.
 
 
