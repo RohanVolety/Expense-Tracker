@@ -41,7 +41,7 @@ function App() {
             <input type="text"
               value={name}
               onChange={ev => setName(ev.target.value)}
-              placeholder={'+200 new tv'} />
+              placeholder={'+2000 New TV'} />
 
             <input value={datetime}
               onChange={ev => setDateTime(ev.target.value)}
@@ -52,10 +52,10 @@ function App() {
             <input type="text"
               value={description}
               onChange={ev => setDescription(ev.target.value)}
-              placeholder={'description'} />
+              placeholder={'Description'} />
           </div>
-          <button onClick={addNewTransction}>Add new Transction</button>
-          <button onClick={getTransactions}>Get Transction</button>
+          <button onClick={addNewTransction}>Add New Transaction</button>
+          <button onClick={getTransactions}>Get Transactions</button>
         </form>
       </div>
       <div className='transctions'>
