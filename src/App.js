@@ -1,93 +1,80 @@
 import './App.css';
 import { useEffect, useState } from 'react';
-
+import axios from 'axios';
+import moment from 'moment/moment';
 function App() {
-  const [name,setName]=useState('');
-  const [datetime,setDateTime]=useState('');
-  const [description,setDescription]=useState('');
-  const[transactions,setTransactions]=useState('');
-  useEffect(()=>{
+  const [name, setName] = useState('');
+  const [datetime, setDateTime] = useState('');
+  const [description, setDescription] = useState('');
+  const [transactions, setTransactions] = useState([])
+
+  useEffect(() => {
     getTransactions().then(setTransactions);
-    
-  },[])
-  async function getTransactions(){
-    const url=process.env.REACT_APP_API_URL+'/transactions';
-    const response = await fetch(url).then(response);
-    return await response.json();
+  }, [])
+
+  async function getTransactions(e) {
+    e.preventDefault();
+    const { data } = await axios.get('http://localhost:4000/api/transactions')
+    setTransactions(data);
   }
-  function addNewTransction(ev){
-    ev.preventDefault();
-    const url=process.env.REACT_APP_API_URL+'/transaction';
-  //console.log(url);
-  const price=name.split(' ')[0];
-    fetch(url,{
-      method:'POST',
-      Headers:{'Context-type':'application/json'},
-      body:JSON.stringify({
-       name:name.substring(price.length+1),
-        price,
-       description,
-        datetime,
-      
-      })
-    }).then(response=>{
-        response.json().then(json=>{
-          setName('');
-          setDateTime('');
-          setDescription('');
-          console.log('result',json);
-        });
-      });
+
+  const addNewTransction = async (e) => {
+    e.preventDefault();
+    const url = 'http://localhost:4000/api/transaction';
+    const price = parseInt(name);
+    const { data } = await axios.post(url, { name, price, description, datetime }); 
     
   }
-let balance=0;
-for(const transaction of transactions){
-  balance+=transaction.price;
-}
+  // parseInt(name);
+ 
+  let balance = 0;
+  for (const transaction of transactions) {
+    balance += transaction.price;
+  }
 
   return (
     <main>
-    <div>
-      <h1>Rs{balance}</h1>
-      <form onSubmit={addNewTransction}>
-        <div className='basic'>
-        <input type="text"
-        value={name} 
-        onChange={ev=>setName(ev.target.value)}
-        placeholder={'+200 new tv'} />
-        
-        <input value={datetime}
-        onChange={ev=>setDateTime(ev.target.value)}
-        type="datetime-local"/>
-        </div>
-        <div className='description'>
-        <input type="text" 
-        value={description}
-        onChange={ev=>setDescription(ev.target.value)}
-        placeholder={'description'}/>
-        </div>
-        <button> Add new Transction</button>
-       
-      </form>
-       </div>
-      
-      
-      <div className='transctions'>
-        {transactions.length>0 && transactions.map(transaction=>(
-             <div className='transction'>
-        <div className='left'>
-          <div className='name'>{transaction.name} tv</div>
-          <div className='description'>{transaction.description}</div>
+      <div>
+        <h1>Rs {balance}</h1>
+        <form>
+          <div className="basic">
+            <input type="text"
+              value={name}
+              onChange={ev => setName(ev.target.value)}
+              placeholder={'+200 new tv'} />
+
+            <input value={datetime}
+              onChange={ev => setDateTime(ev.target.value)}
+              type="datetime-local"
+              />
           </div>
-          <div className='right'>
-            <div className={"price" + ((transaction.price<0)?'red':'green')}>$500</div>
-            <div className='datetime'> 2021-01-01</div>
+          <div className="description">
+            <input type="text"
+              value={description}
+              onChange={ev => setDescription(ev.target.value)}
+              placeholder={'description'} />
+          </div>
+          <button onClick={addNewTransction}>Add new Transction</button>
+          <button onClick={getTransactions}>Get Transction</button>
+        </form>
+      </div>
+      <div className='transctions'>
+        {
+          transactions.length > 0 && transactions.map((transaction,index) => (
+            <div key={index} className='transction'>
+              <div className="left">
+                <div className="name">{transaction.name.substring(transaction.name.indexOf(' ') + 1)}</div>
+                <div className="description">{transaction.description}</div>
+              </div>
+              <div className="right">
+              
+                <div className={"price " +((transaction.price < 0) ? 'red' : 'green')}>Rs{transaction.price}</div>
+                <div className="datetime">{moment(transaction.datetime).format('MMMM Do YYYY, h:mm:ss a')}</div>
+              </div>
             </div>
-        </div>
-       
-        ))}
-       </div>
-   
+            )
+          )}
+      </div>
     </main>
   );
 }
