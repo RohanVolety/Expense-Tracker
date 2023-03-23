@@ -2,8 +2,10 @@
   box-sizing: border-box;
 }
 body{
-  background-color: #17181F;
-  color: #ddd;
+  background-color: white;
+  /* background: linear-gradient(180.2deg, rgb(30, 33, 48) 6.8%, rgb(74, 98, 110) 131%); */
+  background: linear-gradient(109.6deg, rgb(36, 45, 57) 11.2%, rgb(16, 37, 60) 51.2%, rgb(0, 0, 0) 98.6%);
+  
 }
 main{
   max-width: 360px;
@@ -13,7 +15,7 @@ main{
 
 h1{
   text-align: center;
-  color: #fff;
+  color: white;
   margin: 0;
 }
 
@@ -24,13 +26,13 @@ form{
 form input{
   width:100%;
   background-color: transparent;
-  color:#ddd;
+  color:white;
   border: 2px solid #30313d;
-  padding: 2px 5px;
-  border-radius: 5px;
+  padding: 12px 15px;
+  border-radius: 10px;
 }
 form input[type="datime-local"]{
-  color:#777;
+  color:#ddd;
 }
 
 form div.basic{
@@ -43,8 +45,8 @@ form button{
   width: 100%;
   margin: 5px;
   border: 0;
-  border-radius: 5px;
-  padding: 5px;
+  border-radius: 10px;
+  padding: 15px;
   background-color: #ddd;
 
 }
@@ -57,36 +59,40 @@ div.transction{
   display: flex;
   padding: 5px 0;
   justify-content: space-between;
-  border-top:1px solid #30313d;
+  border-top:1px solid white;
 
 }
 div.transction:first-child{
   border-top: 0;
 }
-div transction div.name{
+div.name{
   font-size:1rem;
+  font-weight: bold;
+  color: white;
+  
 }
 
-div.transction div.description{
-  font-size:.7rem;
-  color: #888;
+div.description{
+  font-size:.6rem;
+  color:lightblue;
 
 
 }
 
 div.right{
   text-align: right;
+  font-weight: bold;
 }
 div.price.green{
-  color: #1c1;
+  color: #00E338;
 }
 
 div.price.red{
-  color: #c11;
+  color: crimson;
 }
 
-div.transction div.datetime{
-  font-size: .7rem;
-    color: #888;
+div.datetime{
+  font-size: .6rem;
+    color: lightblue;
 
 }
