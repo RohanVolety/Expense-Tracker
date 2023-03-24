@@ -14,13 +14,13 @@ function App() {
 
   async function getTransactions(e) {
     e.preventDefault();
-    const { data } = await axios.get('http://localhost:4000/api/transactions')
+    const { data } = await axios.get('https://expense-tracker-bice-tau.vercel.app/api/transactions')
     setTransactions(data);
   }
 
   const addNewTransction = async (e) => {
     e.preventDefault();
-    const url = 'http://localhost:4000/api/transaction';
+    const url = 'https://expense-tracker-bice-tau.vercel.app/api/transaction';
     const price = parseInt(name);
     const { data } = await axios.post(url, { name, price, description, datetime }); 
     
